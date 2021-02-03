@@ -4,7 +4,7 @@ service cloud.firestore {
     match /{document=**} {
       match /users/{userId} {
         allow read: if true;
-        allow create: if request.auth != null && request.auth.uid == userId;
+        allow create: if request.auth != null && request.auth.uid == userId && request.resource.data.invitation == 3;
         allow update: if resource.data.invitationKey == request.resource.data.invitationKey  && resource.data.timestamp == request.resource.data.timestamp  && resource.data.invitation - 1 == request.resource.data.invitation;
       } match /invitations/{invId} {
         allow read: if true;
